@@ -6,6 +6,7 @@ import styled from "@emotion/styled";
 
 import EmailIcon from "../../../../public/icons/email.svg";
 import PasswordIcon from "../../../../public/icons/password.svg";
+import EyeIcon from "../../../../public/icons/eye.svg";
 import Google from "../../../../public/icons/google.svg";
 import Loader from "../../../../public/icons/loader.svg";
 import Confirm from "../../../../public/icons/confirm.svg";
@@ -57,6 +58,7 @@ const Form = () => {
   const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
   const [error, setError] = useState("");
+  const [inputType, setInputType] = useState<"password" | "text">("password");
   const { Popup, setPopupOpen } = usePopup({ cb: () => Router.push("/") });
 
   const onSubmitAuth = () => {
@@ -82,8 +84,7 @@ const Form = () => {
       return setError("Password must be at least 6 characters");
     }
 
-    getAuth({ email, password }).then((res) => {
-      //   onSuccess();
+    getAuth({ email: email.trim(), password: password.trim() }).then((res) => {
       if (res.error) {
         setLoading(false);
         return setError(res.errorText);
@@ -121,10 +122,25 @@ const Form = () => {
           setPassword(e.target.value);
           setError("");
         }}
+        onBlur={() => setInputType("password")}
         label="Password"
         id="password"
-        icon={<PasswordIcon width="16px" height="16px" />}
-        type="password"
+        icon={
+          inputType === "password" ? (
+            <EyeIcon
+              width="18px"
+              height="18px"
+              onClick={() => setInputType("text")}
+            />
+          ) : (
+            <PasswordIcon
+              width="16px"
+              height="16px"
+              onClick={() => setInputType("password")}
+            />
+          )
+        }
+        type={inputType}
         error={error}
       />
       <StyledRecovery href="#" tabIndex={-1}>

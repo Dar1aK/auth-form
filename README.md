@@ -21,12 +21,13 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 - Responsive markup for mobile/tablet/desktop
 - Simple animation for block with slider
-- Add third party slider library for beautifulization
+- Added third party slider library for beautifulization
+- Typescript is used
 - Labels animation for inputs & svg icons color change with focus/error state
 - Loader for submit button
 - Error handling: server errors + user possible errors
 - Very simple confirmation screen
-- Typescript is used
+- Visibility changer for password input
 
 ### Next steps for expand development:
 
