@@ -19,7 +19,8 @@ declare module "@emotion/react" {
 
   export interface Theme {
     colors: {
-      primary: string;
+      error: string;
+      success: string;
       cups: {
         white: string;
         white10percent: string;
@@ -42,6 +43,7 @@ declare module "@emotion/react" {
       tablet: number;
       tabletLarge: number;
       desktop: number;
+      desktopLarge: number;
     };
     typography: {
       h1: CommonFonts;

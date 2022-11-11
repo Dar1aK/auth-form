@@ -2,7 +2,8 @@ const FONT = "Montserrat";
 
 export const theme = {
   colors: {
-    primary: "hotpink",
+    error: "#FF6C77",
+    success: "#23A485",
     cups: {
       white: "#FFFFFF",
       white10percent: "#FFFFFF1a",
@@ -29,19 +30,20 @@ export const theme = {
     tablet: 768,
     tabletLarge: 992,
     desktop: 1200,
+    desktopLarge: 1920,
   },
   typography: {
     h1: {
-      fontSize: 36,
-      lineHeight: "44px",
+      fontSize: 42,
+      lineHeight: "48px",
       fontWeight: 700,
       color: "#192038", //assam
       fontStyle: "normal",
       fontFamily: FONT,
     },
     h2: {
-      fontSize: 26,
-      lineHeight: "32px",
+      fontSize: 32,
+      lineHeight: "36px",
       fontWeight: 700,
       color: "#192038", //assam
       fontStyle: "normal",

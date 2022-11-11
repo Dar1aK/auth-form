@@ -34,8 +34,7 @@ export const GlobalStyles = () => {
           font-weight: 400;
           src: local(""),
             url("../fonts/montserrat-regular.woff2") format("woff2"),
-            /* Super Modern Browsers */ url("../fonts/montserrat-regular.woff")
-              format("woff"); /* Modern Browsers */
+            url("../fonts/montserrat-regular.woff") format("woff");
         }
       `}
     />

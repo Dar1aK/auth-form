@@ -1,12 +1,12 @@
-import React, { InputHTMLAttributes, ReactElement } from "react";
+import { InputHTMLAttributes, ReactElement } from "react";
 import styled from "@emotion/styled";
-import { spawn } from "child_process";
 
 type LabelProps = Pick<InputHTMLAttributes<HTMLInputElement>, "value">;
 
 interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
   label: string;
   icon: ReactElement;
+  error?: string;
 }
 
 const StyledLabel = styled("span")<LabelProps>`
@@ -38,14 +38,15 @@ const StyledInput = styled("input")`
   }
 `;
 
-const StyledIcon = styled("span")`
+const StyledIcon = styled("span")<{ error: boolean }>`
   position: absolute;
   top: 50%;
   right: 10px;
   width: 16px;
   height: 16px;
   transform: translateY(-50%);
-  color: ${(props) => props.theme.colors.cups.earlGrey};
+  color: ${(props) =>
+    props.error ? props.theme.colors.error : props.theme.colors.cups.earlGrey};
   transition: 0.3s color;
   label:focus-within & {
     color: ${(props) => props.theme.colors.butterflypea.light};
@@ -53,13 +54,13 @@ const StyledIcon = styled("span")`
 `;
 
 export const Input = (props: InputProps) => {
-  const { id, value, label, icon } = props;
+  const { id, value, label, icon, error } = props;
   return (
     <div css={{ position: "relative" }}>
       <label htmlFor={id} css={{ display: "block" }}>
         <StyledLabel value={value}>{label}</StyledLabel>
         <StyledInput type="text" {...props} />
-        {icon && <StyledIcon>{icon}</StyledIcon>}
+        {icon && <StyledIcon error={!!error}>{icon}</StyledIcon>}
       </label>
     </div>
   );

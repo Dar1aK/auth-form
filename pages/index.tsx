@@ -1,36 +1,44 @@
-import Head from "next/head";
-import Image from "next/image";
+import { useEffect, useState } from "react";
 import Link from "next/link";
-import styled from "@emotion/styled";
+import Router from "next/router";
 
 import Container from "../components/Container";
 
-const Button = styled.button`
-  padding: 32px;
-  background-color: hotpink;
-  font-size: 24px;
-  border-radius: 4px;
-  color: black;
-  font-weight: bold;
-  &:hover {
-    color: white;
-  }
-`;
-
 export default function Home() {
+  const [user, setUser] = useState(null);
+  useEffect(() => {
+    // unserious check
+    const user = localStorage.getItem("login");
+
+    if (!user) {
+      Router.push("/login");
+      return;
+    }
+    setUser(JSON.parse(user));
+  }, []);
   return (
     <Container>
       <main>
-        <h1>
-          Welcome to <a href="https://nextjs.org">Next.js!</a>
-        </h1>
-
-        <Button>This my button component.</Button>
-
-        <Link href="/login">Login</Link>
+        <h1>You are in! 👩‍💻✨</h1>
       </main>
 
-      <footer></footer>
+      <footer>
+        {user && (
+          <p>
+            Hello, {user.firstName} {user.lastName}!
+          </p>
+        )}
+        You can check login page again here:{" "}
+        <Link
+          href="/login"
+          css={(theme) => ({
+            color: theme.colors.butterflypea.dark,
+            fontWeight: "700",
+          })}
+        >
+          Login
+        </Link>
+      </footer>
     </Container>
   );
 }
