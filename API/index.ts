@@ -5,8 +5,9 @@ export const getAuth = (params: { email: string; password: string }) => {
     body: JSON.stringify(params),
   }).then(async (res) => {
     const resolve = await res.json();
-    localStorage.setItem("login", JSON.stringify(resolve.user));
-
+    if (resolve.user) {
+      sessionStorage.setItem("login", JSON.stringify(resolve.user));
+    }
     return resolve;
   });
 };

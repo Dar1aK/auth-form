@@ -30,6 +30,9 @@ const StyledRecovery = styled(Link)`
   margin-bottom: 40px;
   font-size: 12px;
   color: ${(props) => props.theme.colors.butterflypea.veryDark};
+  &:hover {
+    text-decoration: underline;
+  }
 `;
 
 const WithGoogle = styled(Button)((props) => ({
@@ -61,7 +64,8 @@ const Form = () => {
   const [inputType, setInputType] = useState<"password" | "text">("password");
   const { Popup, setPopupOpen } = usePopup({ cb: () => Router.push("/") });
 
-  const onSubmitAuth = () => {
+  const onSubmitAuth = (e) => {
+    e.preventDefault();
     setError("");
     setLoading(true);
 
@@ -102,67 +106,66 @@ const Form = () => {
 
   return (
     <div>
-      {error && <Error>{error}</Error>}
+      <form onSubmit={onSubmitAuth}>
+        {error && <Error>{error}</Error>}
 
-      <Input
-        value={email}
-        onChange={(e) => {
-          setEmail(e.target.value);
-          setError("");
-        }}
-        label="Email"
-        id="email"
-        icon={<EmailIcon width="16px" height="16px" />}
-        error={error}
-      />
+        <Input
+          value={email}
+          onChange={(e) => {
+            setEmail(e.target.value);
+            setError("");
+          }}
+          label="Email"
+          id="email"
+          icon={<EmailIcon width="16px" height="16px" />}
+          error={error}
+        />
 
-      <Input
-        value={password}
-        onChange={(e) => {
-          setPassword(e.target.value);
-          setError("");
-        }}
-        onBlur={() => setInputType("password")}
-        label="Password"
-        id="password"
-        icon={
-          inputType === "password" ? (
-            <EyeIcon
-              width="18px"
-              height="18px"
-              onClick={() => setInputType("text")}
-            />
-          ) : (
-            <PasswordIcon
-              width="16px"
-              height="16px"
-              onClick={() => setInputType("password")}
-            />
-          )
-        }
-        type={inputType}
-        error={error}
-      />
-      <StyledRecovery href="#" tabIndex={-1}>
-        Recovery password
-      </StyledRecovery>
+        <Input
+          value={password}
+          onChange={(e) => {
+            setPassword(e.target.value);
+            setError("");
+          }}
+          onBlur={() => setInputType("password")}
+          label="Password"
+          id="password"
+          icon={
+            inputType === "password" ? (
+              <EyeIcon
+                width="18px"
+                height="18px"
+                onClick={() => setInputType("text")}
+                css={{ cursor: "pointer" }}
+              />
+            ) : (
+              <PasswordIcon
+                width="16px"
+                height="16px"
+                onClick={() => setInputType("password")}
+                css={{ cursor: "pointer" }}
+              />
+            )
+          }
+          type={inputType}
+          error={error}
+        />
+        <StyledRecovery href="#" tabIndex={-1}>
+          Recovery password
+        </StyledRecovery>
 
-      <Button
-        type="submit"
-        onClick={onSubmitAuth}
-        isLoading={isLoading}
-        disabled={isLoading}
-      >
-        {isLoading && (
-          <Loader width="22px" height="22px" css={{ marginRight: "8px" }} />
-        )}
-        Login
-      </Button>
+        <Button type="submit" isLoading={isLoading} disabled={isLoading}>
+          {isLoading && (
+            <Loader width="22px" height="22px" css={{ marginRight: "8px" }} />
+          )}
+          Login
+        </Button>
 
-      <WithGoogle disabled isLoading={isLoading}>
-        <Google width="26px" height="26px" />
-        Sign in with Google
-      </WithGoogle>
+        <WithGoogle disabled isLoading={isLoading}>
+          <Google width="26px" height="26px" />
+          Sign in with Google
+        </WithGoogle>
+      </form>
 
       <Popup>
         <div css={{ textAlign: "center" }}>

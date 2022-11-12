@@ -1,5 +1,17 @@
 import { useState } from "react";
 import styled from "@emotion/styled";
+import { keyframes } from "@emotion/react";
+
+const bounce = keyframes`
+  0% {
+    transform: translate3d(100%, 0, 0);
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+    opacity: 1;
+  }
+`;
 
 const Back = styled.div`
   position: fixed;
@@ -9,6 +21,7 @@ const Back = styled.div`
   width: 100%;
   height: 100%;
   background: ${(props) => props.theme.colors.butterflypea.light};
+  animation: ${bounce} 0.7s ease forwards;
 `;
 
 const StyledPopup = styled.div`
@@ -36,8 +49,7 @@ const usePopup = ({ cb }) => {
     Popup: ({ children }) => {
       if (!isActive) return null;
       setTimeout(() => {
-        cb && cb();
-        setPopupOpen(false);
+        cb && cb().then(() => setPopupOpen(false));
       }, 5000);
       return (
         <Back>

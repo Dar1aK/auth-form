@@ -7,20 +7,9 @@ import { GlobalStyles } from "../styles/globals";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   return (
-    <>
-      <Head>
-        <link
-          rel="preload"
-          href="/fonts/Inter-roman.latin.var.woff2"
-          as="font"
-          type="font/woff2"
-          crossOrigin="anonymous"
-        />
-      </Head>
-      <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        <Component {...pageProps} />
-      </ThemeProvider>
-    </>
+    <ThemeProvider theme={theme}>
+      <GlobalStyles />
+      <Component {...pageProps} />
+    </ThemeProvider>
   );
 }

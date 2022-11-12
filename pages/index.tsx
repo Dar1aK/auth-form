@@ -8,7 +8,7 @@ export default function Home() {
   const [user, setUser] = useState(null);
   useEffect(() => {
     // unserious check
-    const user = localStorage.getItem("login");
+    const user = sessionStorage.getItem("login");
 
     if (!user) {
       Router.push("/login");

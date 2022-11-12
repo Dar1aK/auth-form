@@ -63,6 +63,9 @@ const FormSection = () => {
           css={(theme) => ({
             color: theme.colors.butterflypea.dark,
             fontWeight: "700",
+            "&:hover": {
+              textDecoration: "underline",
+            },
           })}
         >
           Sign up
