@@ -24,9 +24,8 @@ const StyledLabel = styled("span")<LabelProps>`
 
 const StyledInput = styled("input")`
   width: 100%;
+  margin: 10px 0;
   padding: 14px 16px;
-  margin-top: 10px;
-  margin-bottom: 10px;
   font-size: 16px;
   color: ${(props) => props.theme.colors.cups.darjeeling};
   border: 1px solid ${(props) => props.theme.colors.cups.jasmine};

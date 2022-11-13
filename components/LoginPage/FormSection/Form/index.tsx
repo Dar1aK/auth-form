@@ -21,8 +21,8 @@ export const StyledForm = styled.div`
   display: flex;
   flex: 0 1 50%;
   max-width: 600px;
-  padding: 100px 50px;
   margin: 0 auto;
+  padding: 100px 50px;
 `;
 
 const StyledRecovery = styled(Link)`
@@ -37,14 +37,14 @@ const StyledRecovery = styled(Link)`
 
 const WithGoogle = styled(Button)((props) => ({
   marginTop: "10px",
-  backgroundColor: props.theme.colors.cups.white,
   color: props.theme.colors.cups.oolong,
+  backgroundColor: props.theme.colors.cups.white,
   border: `1px solid ${props.theme.colors.cups.jasmine}`,
 }));
 
 const Error = styled.span((props) => ({
-  color: props.theme.colors.error,
   fontSize: "12px",
+  color: props.theme.colors.error,
 }));
 
 const H1 = styled.h1((props) => ({
@@ -60,38 +60,47 @@ const Form = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setLoading] = useState(false);
-  const [error, setError] = useState("");
+  const [error, setError] = useState<null | {
+    common?: string;
+    email?: string;
+    password?: string;
+  }>(null);
   const [inputType, setInputType] = useState<"password" | "text">("password");
   const { Popup, setPopupOpen } = usePopup({ cb: () => Router.push("/") });
 
   const onSubmitAuth = (e) => {
     e.preventDefault();
-    setError("");
+    setError(null);
     setLoading(true);
+
+    if (!email && !password) {
+      setLoading(false);
+      return setError({ common: "Fill in the fields" });
+    }
 
     if (!email) {
       setLoading(false);
-      return setError("Email is required");
+      return setError({ email: "Email is required" });
     }
 
     if (!password) {
       setLoading(false);
-      return setError("Password is required");
+      return setError({ password: "Password is required" });
     }
 
     if (!EMAIL_REGEX.test(email)) {
       setLoading(false);
-      return setError("Email doesn't look like email");
+      return setError({ email: "Email doesn't look like email" });
     }
     if (!PASSWORD_REGEX.test(password)) {
       setLoading(false);
-      return setError("Password must be at least 6 characters");
+      return setError({ password: "Password must be at least 6 characters" });
     }
 
     getAuth({ email: email.trim(), password: password.trim() }).then((res) => {
       if (res.error) {
         setLoading(false);
-        return setError(res.errorText);
+        return setError({ common: res.errorText });
       }
       if (res.success) {
         onSuccess();
@@ -107,25 +116,27 @@ const Form = () => {
   return (
     <div>
       <form onSubmit={onSubmitAuth}>
-        {error && <Error>{error}</Error>}
+        {error && (
+          <Error>{error.common || error.email || error.password}</Error>
+        )}
 
         <Input
           value={email}
           onChange={(e) => {
             setEmail(e.target.value);
-            setError("");
+            setError(null);
           }}
           label="Email"
           id="email"
           icon={<EmailIcon width="16px" height="16px" />}
-          error={error}
+          error={error?.common || error?.email}
         />
 
         <Input
           value={password}
           onChange={(e) => {
             setPassword(e.target.value);
-            setError("");
+            setError(null);
           }}
           onBlur={() => setInputType("password")}
           label="Password"
@@ -148,7 +159,7 @@ const Form = () => {
             )
           }
           type={inputType}
-          error={error}
+          error={error?.common || error?.password}
         />
         <StyledRecovery href="#" tabIndex={-1}>
           Recovery password

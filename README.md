@@ -32,7 +32,6 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ### Next steps for expand development:
 
 - Add more advanced animation
-- Add animation for Confirmation screen
 - Add library for form validation, e.g. `react-hook-form` or `formik`, `yup` and error handling for each field separately
 - Add Recovery password and Sign up forms
 - Add sms step

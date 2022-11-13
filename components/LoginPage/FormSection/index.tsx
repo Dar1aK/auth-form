@@ -8,15 +8,15 @@ export const StyledForm = styled.div`
   display: flex;
   flex: 0 1 50%;
   max-width: 600px;
-  padding: 100px 50px;
   margin: 0 auto;
+  padding: 100px 50px;
 `;
 
 const Logo = styled.div`
-  margin: auto;
   display: block;
   width: 42px;
   height: 42px;
+  margin: auto;
   font-size: 30px;
 `;
 
@@ -30,15 +30,15 @@ const H1 = styled.h1((props) => ({
 
 const About = styled.div`
   margin-bottom: 40px;
-  color: ${(props) => props.theme.colors.cups.earlGrey};
   text-align: center;
+  color: ${(props) => props.theme.colors.cups.earlGrey};
 `;
 
 const Footer = styled.div`
   position: absolute;
+  right: 0;
   bottom: 20px;
   left: 0;
-  right: 0;
   text-align: center;
 `;
 

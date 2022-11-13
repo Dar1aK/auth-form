@@ -30,9 +30,9 @@ const StyledPopup = styled.div`
   right: 0;
   bottom: 0;
   left: 0;
-  margin: auto;
   width: max-content;
   height: max-content;
+  margin: auto;
 `;
 
 const Background = styled.div`
@@ -49,7 +49,8 @@ const usePopup = ({ cb }) => {
     Popup: ({ children }) => {
       if (!isActive) return null;
       setTimeout(() => {
-        cb && cb().then(() => setPopupOpen(false));
+        setPopupOpen(false);
+        cb && cb();
       }, 5000);
       return (
         <Back>

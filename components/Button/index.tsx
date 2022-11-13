@@ -9,14 +9,14 @@ const Button = styled.button<ButtonProps>`
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 50px;
   width: 100%;
+  height: 50px;
   padding: 16px 24px;
-  border-radius: 4px;
-  border: 0;
   font-size: 16px;
   font-weight: bold;
   color: ${(props) => props.theme.colors.cups.chamomile};
+  border-radius: 4px;
+  border: 0;
   background-color: ${(props) =>
     props.isLoading
       ? props.theme.colors.butterflypea.butterflypea
@@ -24,12 +24,12 @@ const Button = styled.button<ButtonProps>`
   &:disabled {
     opacity: 0.6;
   }
+  &:not(:disabled) {
+    cursor: pointer;
+  }
   &:hover {
     color: ${(props) => props.theme.colors.cups.white};
     background-color: ${(props) => props.theme.colors.butterflypea.dark};
-  }
-  &:not(:disabled) {
-    cursor: pointer;
   }
 `;
 
